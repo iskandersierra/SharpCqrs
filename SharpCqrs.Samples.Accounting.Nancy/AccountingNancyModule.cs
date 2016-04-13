@@ -20,14 +20,23 @@ namespace SharpCqrs.Samples.Accounting.Nancy
 
         private async Task<dynamic> PostCreate(dynamic _, CancellationToken ct)
         {
-            var binding = this.Bind<CreateBinding>();
-            string accountId = Guid.NewGuid().ToString("D");
+            try
+            {
+                _loggingService.Trace(Context.Request.Url);
 
-            var command = new Create(accountId, binding.Owner);
+                var binding = this.Bind<CreateBinding>();
+                string accountId = Guid.NewGuid().ToString("D");
 
+                var command = new Create(accountId, binding.Owner);
+                Negotiate.
+                return Response.AsJson(command, HttpStatusCode.Accepted);
+            }
+            catch (Exception ex)
+            {
+                _loggingService.Error(ex, Context.Request.Url);
 
-
-            return Response.AsJson(new { AccountId = accountId }, HttpStatusCode.Accepted);
+                return Response.AsJson(string.Empty, HttpStatusCode.InternalServerError);
+            }
         }
     }
 

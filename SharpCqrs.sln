@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpCqrs.Nancy", "SharpCqr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpCqrs.Samples.Accounting.Nancy", "SharpCqrs.Samples.Accounting.Nancy\SharpCqrs.Samples.Accounting.Nancy.csproj", "{14D2CB8C-CCDD-4F95-910B-7E6FB72E9D1D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpCqrs.TestConsole", "SharpCqrs.TestConsole\SharpCqrs.TestConsole.csproj", "{BF0508EF-A495-4638-92AD-C0CE595F81F5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{14D2CB8C-CCDD-4F95-910B-7E6FB72E9D1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14D2CB8C-CCDD-4F95-910B-7E6FB72E9D1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14D2CB8C-CCDD-4F95-910B-7E6FB72E9D1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF0508EF-A495-4638-92AD-C0CE595F81F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF0508EF-A495-4638-92AD-C0CE595F81F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF0508EF-A495-4638-92AD-C0CE595F81F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF0508EF-A495-4638-92AD-C0CE595F81F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

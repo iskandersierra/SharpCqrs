@@ -12,10 +12,11 @@ namespace SharpCqrs.WebApi.NancySelfHost
             {
                 UrlReservations = new UrlReservations { CreateAutomatically = true, },
             };
-            using (var host = new NancyHost(new Bootstrapper(), config, new Uri(uri)))
+            var bootstrapper = new Bootstrapper();
+            using (var host = new NancyHost(bootstrapper, config, new Uri(uri)))
             {
                 host.Start();
-                Console.WriteLine($"Running on {uri}");
+                bootstrapper.Log.Info($"Running on {uri}");
                 Console.ReadLine();
             }
         }

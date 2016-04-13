@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Nancy;
+using SharpCqrs.Metadata;
 
 namespace SharpCqrs.Samples.Accounting.Nancy
 {
@@ -11,6 +12,10 @@ namespace SharpCqrs.Samples.Accounting.Nancy
                 .As<INancyModule>()
                 .PropertiesAutowired(PropertyWiringOptions.PreserveSetValues)
                 .SingleInstance();
+
+            var solutionMetadata = new SolutionMetadata();
+            builder.RegisterInstance(solutionMetadata).AsImplementedInterfaces();
+
             base.Load(builder);
         }
     }
