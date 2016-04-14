@@ -3,19 +3,19 @@ using System.Collections.ObjectModel;
 
 namespace SharpCqrs.Metadata
 {
-    public class SolutionMetadata : 
+    public class DomainMetadata : 
         MetadataElement
     {
-        public SolutionMetadata(
+        public DomainMetadata(
             string name, 
             string description, 
             MetadataVersion version, 
-            DomainMetadata[] domains) 
+            AggregateMetadata[] aggregates) 
             : base(name, description, version)
         {
-            Domains = new ReadOnlyCollection<DomainMetadata>(domains ?? new DomainMetadata[0]);
+            Aggregates = new ReadOnlyCollection<AggregateMetadata>(aggregates ?? new AggregateMetadata[0]);
         }
 
-        public IReadOnlyCollection<DomainMetadata> Domains { get; }
+        public IReadOnlyCollection<AggregateMetadata> Aggregates { get; }
     }
 }

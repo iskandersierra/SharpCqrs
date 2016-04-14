@@ -277,16 +277,41 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Try parse a wrong version")]
-        [NUnit.Framework.TestCaseAttribute(".", new string[0])]
-        public virtual void TryParseAWrongVersion(string printed, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("Try parse a major.minor.revision.build version")]
+        [NUnit.Framework.TestCaseAttribute("1.0.0.0", "1", "0", "0", "0", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("3.4.1.2", "3", "4", "1", "2", new string[0])]
+        public virtual void TryParseAMajor_Minor_Revision_BuildVersion(string printed, string major, string minor, string revision, string build, string[] exampleTags)
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Try parse a wrong version", exampleTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Try parse a major.minor.revision.build version", exampleTags);
 #line 114
 this.ScenarioSetup(scenarioInfo);
 #line 115
  testRunner.Given(string.Format("A string \"{0}\" is tried to be parsed as a version", printed), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 116
+ testRunner.Then("The parsing attempt succeed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 117
+ testRunner.And(string.Format("The major version looks like \"{0}\"", major), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 118
+ testRunner.And(string.Format("The minor version looks like \"{0}\"", minor), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 119
+ testRunner.And(string.Format("The revision version looks like \"{0}\"", revision), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 120
+ testRunner.And(string.Format("The build version looks like \"{0}\"", build), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Try parse a wrong version")]
+        [NUnit.Framework.TestCaseAttribute(".", new string[0])]
+        public virtual void TryParseAWrongVersion(string printed, string[] exampleTags)
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Try parse a wrong version", exampleTags);
+#line 126
+this.ScenarioSetup(scenarioInfo);
+#line 127
+ testRunner.Given(string.Format("A string \"{0}\" is tried to be parsed as a version", printed), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 128
  testRunner.Then("The parsing attempt failed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -299,20 +324,45 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void ParseAMajorVersion(string printed, string major, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Parse a major version", exampleTags);
-#line 121
+#line 133
 this.ScenarioSetup(scenarioInfo);
-#line 122
+#line 134
  testRunner.Given(string.Format("A string \"{0}\" is parsed as a version", printed), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 123
+#line 135
  testRunner.Then("The parsing succeed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 124
+#line 136
  testRunner.And(string.Format("The major version looks like \"{0}\"", major), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 125
+#line 137
  testRunner.And("The minor version looks like \"\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 126
+#line 138
  testRunner.And("The revision version looks like \"\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 127
+#line 139
  testRunner.And("The build version looks like \"\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Parse a major.minor.revision.build version")]
+        [NUnit.Framework.TestCaseAttribute("1.0.0.0", "1", "0", "0", "0", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("3.4.1.2", "3", "4", "1", "2", new string[0])]
+        public virtual void ParseAMajor_Minor_Revision_BuildVersion(string printed, string major, string minor, string revision, string build, string[] exampleTags)
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Parse a major.minor.revision.build version", exampleTags);
+#line 145
+this.ScenarioSetup(scenarioInfo);
+#line 146
+ testRunner.Given(string.Format("A string \"{0}\" is parsed as a version", printed), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 147
+ testRunner.Then("The parsing succeed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 148
+ testRunner.And(string.Format("The major version looks like \"{0}\"", major), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 149
+ testRunner.And(string.Format("The minor version looks like \"{0}\"", minor), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 150
+ testRunner.And(string.Format("The revision version looks like \"{0}\"", revision), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 151
+ testRunner.And(string.Format("The build version looks like \"{0}\"", build), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -323,12 +373,60 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void ParseAWrongVersion(string printed, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Parse a wrong version", exampleTags);
-#line 133
+#line 157
 this.ScenarioSetup(scenarioInfo);
-#line 134
+#line 158
  testRunner.Given(string.Format("A string \"{0}\" is parsed as a version", printed), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 135
+#line 159
  testRunner.Then("The parsing failed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Compare versions")]
+        [NUnit.Framework.TestCaseAttribute("v1", "1", "v2", "1", "0", "true", "false", "false", "false", "true", "true", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("v1", "1", "v2", "2", "-1", "false", "true", "true", "false", "true", "false", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("v1", "3", "v2", "2", "1", "false", "true", "false", "true", "false", "true", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("v1", "A", "v2", "A", "0", "true", "false", "false", "false", "true", "true", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("v1", "A", "v2", "B", "-1", "false", "true", "true", "false", "true", "false", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("v1", "B", "v2", "a", "1", "false", "true", "false", "true", "false", "true", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("v1", "A", "v2", "a", "0", "true", "false", "false", "false", "true", "true", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("v1", "1.0", "v2", "1.0", "0", "true", "false", "false", "false", "true", "true", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("v1", "1.1", "v2", "1.0", "1", "false", "true", "false", "true", "false", "true", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("v1", "0.9", "v2", "1.0", "-1", "false", "true", "true", "false", "true", "false", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("v1", "1.3.2-alpha1", "v2", "1.3.2-ALPHA1", "0", "true", "false", "false", "false", "true", "true", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("v1", "1.3.2-alpha1", "v2", "1.3.2-alpha2", "-1", "false", "true", "true", "false", "true", "false", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("v1", "1.3.2-alpha5", "v2", "1.3.2-beta3", "-1", "false", "true", "true", "false", "true", "false", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("v1", "2.3.2-alpha5", "v2", "3.3.2-beta3", "-1", "false", "true", "true", "false", "true", "false", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("v1", "2.5.2-alpha5", "v2", "2.3.2-beta3", "1", "false", "true", "false", "true", "false", "true", new string[0])]
+        public virtual void CompareVersions(string var1, string version1, string var2, string version2, string comparison, string equals, string notequals, string lessthan, string greaterthan, string lessorequal, string greaterorequal, string[] exampleTags)
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Compare versions", exampleTags);
+#line 164
+this.ScenarioSetup(scenarioInfo);
+#line 165
+ testRunner.Given(string.Format("A version \"{0}\" is parsed and stored in \"{1}\"", version1, var1), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 166
+ testRunner.And(string.Format("A version \"{0}\" is parsed and stored in \"{1}\"", version2, var2), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 167
+ testRunner.Then(string.Format("Version \"{0}\" compared with \"{1}\" gives \"{2}\"", var1, var2, comparison), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 168
+ testRunner.And(string.Format("Version \"{0}\" equals \"{1}\" gives \"{2}\"", var1, var2, equals), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 169
+ testRunner.And(string.Format("Version \"{0}\" and \"{1}\" hash codes are \"{2}\"", var1, var2, equals), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 170
+ testRunner.And(string.Format("Version \"{0}\" eq \"{1}\" gives \"{2}\"", var1, var2, equals), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 171
+ testRunner.And(string.Format("Version \"{0}\" ne \"{1}\" gives \"{2}\"", var1, var2, notequals), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 172
+ testRunner.And(string.Format("Version \"{0}\" lt \"{1}\" gives \"{2}\"", var1, var2, lessthan), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 173
+ testRunner.And(string.Format("Version \"{0}\" gt \"{1}\" gives \"{2}\"", var1, var2, greaterthan), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 174
+ testRunner.And(string.Format("Version \"{0}\" le \"{1}\" gives \"{2}\"", var1, var2, lessorequal), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 175
+ testRunner.And(string.Format("Version \"{0}\" ge \"{1}\" gives \"{2}\"", var1, var2, greaterorequal), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }

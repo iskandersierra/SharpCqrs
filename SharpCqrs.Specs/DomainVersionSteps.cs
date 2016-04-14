@@ -42,7 +42,7 @@ namespace SharpCqrs
         [Given(@"A string ""(.*)"" is parsed as a version")]
         public void GivenAStringIsParsedAsAVersion(string printed)
         {
-            SpecUtils.TestValue(() => DomainVersion.Parse(printed));
+            SpecUtils.TestValueProtected(() => DomainVersion.Parse(printed));
         }
         [Given(@"A string ""(.*)"" is tried to be parsed as a version")]
         public void GivenAStringIsTriedToBeParsedAsAVersion(string printed)
@@ -52,6 +52,11 @@ namespace SharpCqrs
 
             succeed.TestValue(nameof(succeed));
             if (succeed) version.TestValue();
+        }
+        [Given(@"A version ""(.*)"" is parsed and stored in ""(.*)""")]
+        public void GivenAVersionIsParsedAndStoredIn(string version, string variable)
+        {
+            SpecUtils.TestValue(() => DomainVersion.Parse(version), variable);
         }
 
         [When(@"The version is printed")]
@@ -119,6 +124,86 @@ namespace SharpCqrs
         public void ThenTheParsingFailed()
         {
             SpecUtils.ExceptionExpected<FormatException>();
+        }
+        [Then(@"Version ""(.*)"" compared with ""(.*)"" gives ""(.*)""")]
+        public void ThenVersionComparedWithGives(string v1, string v2, int comparison)
+        {
+            var version1 = ScenarioContext.Current.Get<DomainVersion>(v1);
+            var version2 = ScenarioContext.Current.Get<DomainVersion>(v2);
+            var comp = version1.CompareTo(version2);
+            comp.Should().Be(comparison, "because it should be the result of the comparison");
+        }
+        [Then(@"Version ""(.*)"" equals ""(.*)"" gives ""(.*)""")]
+        public void ThenVersionEqualsGives(string v1, string v2, bool equals)
+        {
+            var version1 = ScenarioContext.Current.Get<DomainVersion>(v1);
+            var version2 = ScenarioContext.Current.Get<DomainVersion>(v2);
+            var result = version1.Equals(version2);
+            result.Should().Be(equals, "because it should be the result of the equality");
+        }
+        [Then(@"Version ""(.*)"" and ""(.*)"" hash codes are ""(.*)""")]
+        public void ThenVersionAndHashCodesAre(string v1, string v2, bool equals)
+        {
+            if (equals)
+            {
+                var version1 = ScenarioContext.Current.Get<DomainVersion>(v1);
+                var version2 = ScenarioContext.Current.Get<DomainVersion>(v2);
+                var same = version1.GetHashCode() == version2.GetHashCode();
+                same.Should().BeTrue("because it should be the result of the hash code comparison");
+            }
+        }
+        [Then(@"Version ""(.*)"" eq ""(.*)"" gives ""(.*)""")]
+        public void ThenVersionEqGives(string v1, string v2, bool expected)
+        {
+            var version1 = ScenarioContext.Current.Get<DomainVersion>(v1);
+            var version2 = ScenarioContext.Current.Get<DomainVersion>(v2);
+            var result = version1 == version2;
+            result.Should().Be(expected, "because it should be the result of v1 == v2");
+        }
+
+        [Then(@"Version ""(.*)"" ne ""(.*)"" gives ""(.*)""")]
+        public void ThenVersionNeGives(string v1, string v2, bool expected)
+        {
+            var version1 = ScenarioContext.Current.Get<DomainVersion>(v1);
+            var version2 = ScenarioContext.Current.Get<DomainVersion>(v2);
+            var result = version1 != version2;
+            result.Should().Be(expected, "because it should be the result of v1 != v2");
+        }
+
+        [Then(@"Version ""(.*)"" lt ""(.*)"" gives ""(.*)""")]
+        public void ThenVersionLtGives(string v1, string v2, bool expected)
+        {
+            var version1 = ScenarioContext.Current.Get<DomainVersion>(v1);
+            var version2 = ScenarioContext.Current.Get<DomainVersion>(v2);
+            var result = version1 < version2;
+            result.Should().Be(expected, "because it should be the result of v1 < v2");
+        }
+
+        [Then(@"Version ""(.*)"" gt ""(.*)"" gives ""(.*)""")]
+        public void ThenVersionGtGives(string v1, string v2, bool expected)
+        {
+            var version1 = ScenarioContext.Current.Get<DomainVersion>(v1);
+            var version2 = ScenarioContext.Current.Get<DomainVersion>(v2);
+            var result = version1 > version2;
+            result.Should().Be(expected, "because it should be the result of v1 > v2");
+        }
+
+        [Then(@"Version ""(.*)"" le ""(.*)"" gives ""(.*)""")]
+        public void ThenVersionLeGives(string v1, string v2, bool expected)
+        {
+            var version1 = ScenarioContext.Current.Get<DomainVersion>(v1);
+            var version2 = ScenarioContext.Current.Get<DomainVersion>(v2);
+            var result = version1 <= version2;
+            result.Should().Be(expected, "because it should be the result of v1 <= v2");
+        }
+
+        [Then(@"Version ""(.*)"" ge ""(.*)"" gives ""(.*)""")]
+        public void ThenVersionGeGives(string v1, string v2, bool expected)
+        {
+            var version1 = ScenarioContext.Current.Get<DomainVersion>(v1);
+            var version2 = ScenarioContext.Current.Get<DomainVersion>(v2);
+            var result = version1 >= version2;
+            result.Should().Be(expected, "because it should be the result of v1 >= v2");
         }
     }
 }

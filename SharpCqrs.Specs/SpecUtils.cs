@@ -17,6 +17,13 @@ namespace SharpCqrs
 
         public static void TestValue<T>(this Func<T> action, string key = null)
         {
+            T value = action();
+
+            value.TestValue(key);
+        }
+
+        public static void TestValueProtected<T>(this Func<T> action, string key = null)
+        {
             try
             {
                 T value = action();

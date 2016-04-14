@@ -13,6 +13,8 @@ namespace SharpCqrs
         public const char Separator = '.';
         private readonly List<string> parts;
         private readonly List<bool> isNumeric;
+        private static string toString;
+        private readonly int hashCode;
 
         public DomainVersion(int majorVersion)
             : this(majorVersion.ToString(CultureInfo.InvariantCulture)) { }
@@ -61,7 +63,15 @@ namespace SharpCqrs
                     isNumeric.Add(Regex.IsMatch(p, @"^\d+$"));
                 }
             }
-            this.Parts = new ReadOnlyCollection<string>(this.parts);
+            Parts = new ReadOnlyCollection<string>(this.parts);
+            toString = string.Join(Separator.ToString(), parts);
+            hashCode = parts.Aggregate(0, (hash, part) =>
+            {
+                unchecked
+                {
+                    return hash*397 ^ StringComparer.InvariantCultureIgnoreCase.GetHashCode(part);
+                }
+            });
         }
 
         public string MajorVersion => GetPartOr(0, "0");
@@ -122,20 +132,12 @@ namespace SharpCqrs
                 if (comp != 0) return comp;
             }
 
-            comp = parts.Count.CompareTo(other.parts.Count);
             return comp;
         }
 
-        public bool Equals(DomainVersion other)
-        {
-            if (other == null) return false;
-            return CompareTo(other) == 0;
-        }
+        public bool Equals(DomainVersion other) => other != null && CompareTo(other) == 0;
 
-        public override string ToString()
-        {
-            return string.Join(".", parts);
-        }
+        public override string ToString() => toString;
 
         public override bool Equals(object obj)
         {
@@ -145,17 +147,12 @@ namespace SharpCqrs
             return Equals((DomainVersion) obj);
         }
 
-        public override int GetHashCode()
-        {
-            var result = parts.Aggregate(0,
-                (hash, part) => { unchecked { return hash * 397 ^ part.GetHashCode(); } });
-            return result;
-        }
+        public override int GetHashCode() => hashCode;
 
         public static bool operator ==(DomainVersion version1, DomainVersion version2)
         {
-            if (version1 == null && version2 == null) return true;
-            if (version1 == null) return false;
+            if (ReferenceEquals(version1, null) && ReferenceEquals(version2, null)) return true;
+            if (ReferenceEquals(version1, null)) return false;
             return version1.Equals(version2);
         }
 
@@ -166,29 +163,29 @@ namespace SharpCqrs
 
         public static bool operator <(DomainVersion version1, DomainVersion version2)
         {
-            if (version1 == null) throw new ArgumentNullException(nameof(version1));
-            if (version2 == null) throw new ArgumentNullException(nameof(version2));
+            if (ReferenceEquals(version1, null)) throw new ArgumentNullException(nameof(version1));
+            if (ReferenceEquals(version2, null)) throw new ArgumentNullException(nameof(version2));
             return version1.CompareTo(version2) < 0;
         }
 
         public static bool operator <=(DomainVersion version1, DomainVersion version2)
         {
-            if (version1 == null) throw new ArgumentNullException(nameof(version1));
-            if (version2 == null) throw new ArgumentNullException(nameof(version2));
+            if (ReferenceEquals(version1, null)) throw new ArgumentNullException(nameof(version1));
+            if (ReferenceEquals(version2, null)) throw new ArgumentNullException(nameof(version2));
             return version1.CompareTo(version2) <= 0;
         }
 
         public static bool operator >(DomainVersion version1, DomainVersion version2)
         {
-            if (version1 == null) throw new ArgumentNullException(nameof(version1));
-            if (version2 == null) throw new ArgumentNullException(nameof(version2));
+            if (ReferenceEquals(version1, null)) throw new ArgumentNullException(nameof(version1));
+            if (ReferenceEquals(version2, null)) throw new ArgumentNullException(nameof(version2));
             return version1.CompareTo(version2) > 0;
         }
 
         public static bool operator >=(DomainVersion version1, DomainVersion version2)
         {
-            if (version1 == null) throw new ArgumentNullException(nameof(version1));
-            if (version2 == null) throw new ArgumentNullException(nameof(version2));
+            if (ReferenceEquals(version1, null)) throw new ArgumentNullException(nameof(version1));
+            if (ReferenceEquals(version2, null)) throw new ArgumentNullException(nameof(version2));
             return version1.CompareTo(version2) >= 0;
         }
     }

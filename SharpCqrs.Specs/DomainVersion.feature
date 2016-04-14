@@ -111,6 +111,18 @@ Scenario Outline: Try parse a major version
 	| 1       | 1     |
 	| 12      | 12    |
 
+Scenario Outline: Try parse a major.minor.revision.build version
+	Given A string "<printed>" is tried to be parsed as a version
+	Then The parsing attempt succeed
+	And The major version looks like "<major>"
+	And The minor version looks like "<minor>"
+	And The revision version looks like "<revision>"
+	And The build version looks like "<build>"
+	Examples: 
+	| printed | major | minor | revision | build |
+	| 1.0.0.0 | 1     | 0     | 0        | 0     |
+	| 3.4.1.2 | 3     | 4     | 1        | 2     |
+
 Scenario Outline: Try parse a wrong version
 	Given A string "<printed>" is tried to be parsed as a version
 	Then The parsing attempt failed
@@ -130,9 +142,51 @@ Scenario Outline: Parse a major version
 	| 1       | 1     |
 	| 12      | 12    |
 
+Scenario Outline: Parse a major.minor.revision.build version
+	Given A string "<printed>" is parsed as a version
+	Then The parsing succeed
+	And The major version looks like "<major>"
+	And The minor version looks like "<minor>"
+	And The revision version looks like "<revision>"
+	And The build version looks like "<build>"
+	Examples: 
+	| printed | major | minor | revision | build |
+	| 1.0.0.0 | 1     | 0     | 0        | 0     |
+	| 3.4.1.2 | 3     | 4     | 1        | 2     |
+
 Scenario Outline: Parse a wrong version
 	Given A string "<printed>" is parsed as a version
 	Then The parsing failed
 	Examples: 
 	| printed |
 	| .       |
+
+Scenario Outline: Compare versions
+	Given A version "<version1>" is parsed and stored in "<var1>"
+	And A version "<version2>" is parsed and stored in "<var2>"
+	Then Version "<var1>" compared with "<var2>" gives "<comparison>"
+	And Version "<var1>" equals "<var2>" gives "<equals>"
+	And Version "<var1>" and "<var2>" hash codes are "<equals>"
+	And Version "<var1>" eq "<var2>" gives "<equals>"
+	And Version "<var1>" ne "<var2>" gives "<notequals>"
+	And Version "<var1>" lt "<var2>" gives "<lessthan>"
+	And Version "<var1>" gt "<var2>" gives "<greaterthan>"
+	And Version "<var1>" le "<var2>" gives "<lessorequal>"
+	And Version "<var1>" ge "<var2>" gives "<greaterorequal>"
+	Examples: 
+	| var1 | version1     | var2 | version2     | comparison | equals | notequals | lessthan | greaterthan | lessorequal | greaterorequal |
+	| v1   | 1            | v2   | 1            | 0          | true   | false     | false    | false       | true        | true           |
+	| v1   | 1            | v2   | 2            | -1         | false  | true      | true     | false       | true        | false          |
+	| v1   | 3            | v2   | 2            | 1          | false  | true      | false    | true        | false       | true           |
+	| v1   | A            | v2   | A            | 0          | true   | false     | false    | false       | true        | true           |
+	| v1   | A            | v2   | B            | -1         | false  | true      | true     | false       | true        | false          |
+	| v1   | B            | v2   | a            | 1          | false  | true      | false    | true        | false       | true           |
+	| v1   | A            | v2   | a            | 0          | true   | false     | false    | false       | true        | true           |
+	| v1   | 1.0          | v2   | 1.0          | 0          | true   | false     | false    | false       | true        | true           |
+	| v1   | 1.1          | v2   | 1.0          | 1          | false  | true      | false    | true        | false       | true           |
+	| v1   | 0.9          | v2   | 1.0          | -1         | false  | true      | true     | false       | true        | false          |
+	| v1   | 1.3.2-alpha1 | v2   | 1.3.2-ALPHA1 | 0          | true   | false     | false    | false       | true        | true           |
+	| v1   | 1.3.2-alpha1 | v2   | 1.3.2-alpha2 | -1         | false  | true      | true     | false       | true        | false          |
+	| v1   | 1.3.2-alpha5 | v2   | 1.3.2-beta3  | -1         | false  | true      | true     | false       | true        | false          |
+	| v1   | 2.3.2-alpha5 | v2   | 3.3.2-beta3  | -1         | false  | true      | true     | false       | true        | false          |
+	| v1   | 2.5.2-alpha5 | v2   | 2.3.2-beta3  | 1          | false  | true      | false    | true        | false       | true           |

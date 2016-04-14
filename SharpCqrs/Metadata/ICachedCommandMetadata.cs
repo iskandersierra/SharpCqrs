@@ -6,6 +6,6 @@ namespace SharpCqrs.Metadata
     {
         bool IsClrTypeValidCommand(Type type);
 
-        ProvideMetadataResult ProvideCommandMetadata(Type type, string domainModel, DomainVersion version);
+        ProvideMetadataResult ProvideCommandMetadata(MetadataVersion version);
     }
 }
