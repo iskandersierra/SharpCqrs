@@ -35,16 +35,6 @@ namespace SharpCqrs.WebApi.NancySelfHost
             base.ConfigureApplicationContainer(container);
         }
 
-        protected override void ConfigureRequestContainer(ILifetimeScope container, NancyContext context)
-        {
-            base.ConfigureRequestContainer(container, context);
-        }
-
-        protected override void ApplicationStartup(ILifetimeScope container, IPipelines pipelines)
-        {
-            base.ApplicationStartup(container, pipelines);
-        }
-
         protected override IEnumerable<Type> ModelBinders
         {
             get

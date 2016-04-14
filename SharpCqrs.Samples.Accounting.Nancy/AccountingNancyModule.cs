@@ -28,7 +28,7 @@ namespace SharpCqrs.Samples.Accounting.Nancy
                 string accountId = Guid.NewGuid().ToString("D");
 
                 var command = new Create(accountId, binding.Owner);
-                Negotiate.
+
                 return Response.AsJson(command, HttpStatusCode.Accepted);
             }
             catch (Exception ex)
