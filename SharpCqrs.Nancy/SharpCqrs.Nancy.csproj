@@ -65,7 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="JsonSharpCqrsCommandModelBinder.cs" />
+    <Compile Include="SharpCqrsCommandModelBinder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

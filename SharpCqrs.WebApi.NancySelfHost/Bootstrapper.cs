@@ -39,7 +39,7 @@ namespace SharpCqrs.WebApi.NancySelfHost
         {
             get
             {
-                yield return typeof (JsonSharpCqrsCommandModelBinder);
+                yield return typeof (SharpCqrsCommandModelBinder);
                 foreach (var modelBinder in base.ModelBinders)
                     yield return modelBinder;
             }

@@ -2,14 +2,14 @@
 {
     public class ProvideMetadataResult
     {
-        public ProvideMetadataResult(IDataTypeMetadata dataType, IDataTypeMetadata lastVersionDataType)
+        public ProvideMetadataResult(DataTypeMetadata dataType, DataTypeMetadata lastVersionDataType)
         {
             DataType = dataType;
             LastVersionDataType = lastVersionDataType;
         }
 
-        public IDataTypeMetadata DataType { get; }
+        public DataTypeMetadata DataType { get; }
 
-        public IDataTypeMetadata LastVersionDataType { get; }
+        public DataTypeMetadata LastVersionDataType { get; }
     }
 }

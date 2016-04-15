@@ -14,6 +14,8 @@ namespace SharpCqrs.Metadata
             : base(name, description, version)
         {
             Domains = new ReadOnlyCollection<DomainMetadata>(domains ?? new DomainMetadata[0]);
+            foreach (var domain in Domains)
+                domain.Parent = this;
         }
 
         public IReadOnlyCollection<DomainMetadata> Domains { get; }

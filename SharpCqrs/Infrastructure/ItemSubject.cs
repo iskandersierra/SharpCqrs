@@ -2,7 +2,7 @@ using System;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 
-namespace SharpCqrs
+namespace SharpCqrs.Infrastructure
 {
     public class ItemSubject<TItem> :
         IItemProvider<TItem>,

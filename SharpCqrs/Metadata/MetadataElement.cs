@@ -17,6 +17,6 @@ namespace SharpCqrs.Metadata
         public string Name { get; }
         public string Description { get; }
         public MetadataVersion Version { get; }
-        public MetadataElement Parent { get; internal set; }
+        protected internal MetadataElement Parent { get; internal set; }
     }
 }

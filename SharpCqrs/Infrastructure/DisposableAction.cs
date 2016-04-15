@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SharpCqrs
+namespace SharpCqrs.Infrastructure
 {
     public class DisposableAction : IDisposable
     {

@@ -3,7 +3,7 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Threading;
 
-namespace SharpCqrs
+namespace SharpCqrs.Infrastructure
 {
     public class ItemSource<TItem> :
         IItemProvider<TItem>
